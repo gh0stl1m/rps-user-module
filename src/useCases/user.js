@@ -8,6 +8,9 @@ const BusinessError = require('../BusinessError');
 // Entities
 const { User } = require('../entities');
 
+// Use Cases
+const statistics = require('./statistics');
+
 /**
  * Method to read one user
  * @param {Object} query - Filter query
@@ -43,7 +46,10 @@ const create = async ({ firstName, lastName, username }) => {
     logger.error(`(rps-user-module): Error creating user: ${err.message}`);
     throw new BusinessError(errorNames.DATABASE_ERROR, 'rps-user-module');
   }
-  // TODO Create user statistics
+  // Create user statistics
+  statistics.create(userCreated._id)
+    .then(() => logger.info(`(rps-user-module): Statistic created for user ${userCreated._id}`))
+    .catch(err => logger.error(`(rps-user-module): Error creating user statistic: ${err.message}`));
 
   return userCreated;
 };
