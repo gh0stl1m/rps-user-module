@@ -28,4 +28,4 @@ Statistics.plugin(MongooseLeanVirtuals);
 // Indexes
 Statistics.index({ user: 1 });
 
-module.exports = MongoConnection.model('user', Statistics);
+module.exports = MongoConnection.model('statistics', Statistics);

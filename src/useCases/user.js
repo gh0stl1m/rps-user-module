@@ -24,9 +24,9 @@ const readOne = async (query, select = { _id: 1 }) => (await User.find(query, se
 
 /**
  * Method to create a new user.
- * @param {Object} firtsName - User first name
- * @param {Object} lastName - User last name
- * @param {Object} username - User email
+ * @param {String} firtsName - User first name
+ * @param {String} lastName - User last name
+ * @param {String} username - User email
  * @returns {Object} - The method returns an object with the
  *                     new user created.
  */
