@@ -1,4 +1,5 @@
 // Interfaces
-const userInterface = require('./user');
+const userInterface = require('./users');
+const statisticsInterface = require('./statistics');
 
-module.exports = { userInterface };
+module.exports = { userInterface, statisticsInterface };

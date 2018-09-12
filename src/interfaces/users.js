@@ -1,5 +1,5 @@
 // Use Cases
-const { user } = require('../useCases');
+const { users } = require('../useCases');
 
 // Error
 const BusinessError = require('../BusinessError');
@@ -15,7 +15,7 @@ const errorMessages = require('../errors');
  */
 const Create = async ({ firstName, lastName, username } = {}) => {
   if (!firstName || !lastName || !username) throw new BusinessError(errorMessages.PARAMS_REQUIRED, 'rps-user-module');
-  const userCreated = user.create({
+  const userCreated = users.create({
     firstName: firstName.toLowerCase(),
     lastName: lastName.toLowerCase(),
     username: username.toLowerCase(),
@@ -33,7 +33,7 @@ const Create = async ({ firstName, lastName, username } = {}) => {
  */
 const ReadById = async (userId, select = { _id: 1 }) => {
   if (!userId) throw new BusinessError(errorMessages.PARAMS_REQUIRED, 'rps-user-module');
-  const userFound = await user.readOne({ _id: userId }, select);
+  const userFound = await users.readOne({ _id: userId }, select);
 
   return userFound;
 };

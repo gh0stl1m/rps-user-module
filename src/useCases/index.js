@@ -1,4 +1,5 @@
 // Use cases
-const user = require('./user');
+const users = require('./users');
+const statistics = require('./statistics');
 
-module.exports = { user };
+module.exports = { users, statistics };

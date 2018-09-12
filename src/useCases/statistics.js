@@ -39,12 +39,43 @@ const create = async (userId) => {
     logger.error(`(rps-user-module): Error creating user statistic: ${err.message}`);
     throw new BusinessError(errorNames.DATABASE_ERROR, 'rps-user-module');
   }
-  // TODO Create user statistics
 
   return userCreated;
+};
+
+/**
+ * Method to report statistics
+ * @param {String} userId - Id of user
+ * @param {String} kind - Type of statistic
+ */
+
+const reportStatistic = async (userId, kind) => {
+  let paramsToUpdate = {};
+  switch (kind) {
+    case 'WIN':
+      paramsToUpdate = { $inc: { gamesWins: 1 } };
+      break;
+    case 'DEFEAT':
+      paramsToUpdate = { $inc: { gamesDefeats: 1 } };
+      break;
+    case 'TIE':
+      paramsToUpdate = { $inc: { gamesTie: 1 } };
+      break;
+    default:
+      paramsToUpdate = {};
+  }
+  // Update statistics
+  const updateStatus = await Statistics.update({
+    user: userId,
+  }, paramsToUpdate);
+
+  if ((updateStatus.ok === 0) || (updateStatus.nModified === 0)) {
+    throw new BusinessError(errorNames.USER_DOES_NOT_EXISTS, 'rps-user-module');
+  }
 };
 
 module.exports = {
   readOne,
   create,
+  reportStatistic,
 };
