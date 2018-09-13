@@ -21,4 +21,19 @@ const ReportStatistics = async (userId, kind) => {
   await statistics.reportStatistic(userId, kind.toUpperCase());
 };
 
-module.exports = { ReportStatistics };
+/**
+ * Method to read the user statistics
+ * @param {String} userId - Id of user
+ * @param {Object} select - Fields to return
+ * @returns {Object} - The method returns an object with the user statistics if it exists
+ */
+const ReadStatistics = async (userId, select = { _id: 1 }) => {
+  if (!userId) throw new BusinessError(errorNames.PARAMS_REQUIRED, 'rps-user-module');
+  const userStatistics = await statistics.readOne({
+    user: userId,
+  }, select);
+
+  return userStatistics;
+};
+
+module.exports = { ReportStatistics, ReadStatistics };
