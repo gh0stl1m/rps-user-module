@@ -7,19 +7,13 @@ const errorMessages = require('../errors');
 
 /**
  * Method to create a new user.
- * @param {String} firtsName - User first name
- * @param {String} lastName - User last name
  * @param {String} username - User email
  * @returns {Object} - The method returns an object with the
  *                     new user created.
  */
-const Create = async ({ firstName, lastName, username } = {}) => {
-  if (!firstName || !lastName || !username) throw new BusinessError(errorMessages.PARAMS_REQUIRED, 'rps-user-module');
-  const userCreated = users.create({
-    firstName: firstName.toLowerCase(),
-    lastName: lastName.toLowerCase(),
-    username: username.toLowerCase(),
-  });
+const Create = async (username) => {
+  if (!username) throw new BusinessError(errorMessages.PARAMS_REQUIRED, 'rps-user-module');
+  const userCreated = users.create(username.toLowerCase());
 
   return userCreated;
 };

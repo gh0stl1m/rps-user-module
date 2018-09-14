@@ -7,10 +7,6 @@ const { MongoConnection } = require('../drivers');
 
 // Define Schema
 const User = new Schema({
-  profile: {
-    firstName: { type: String },
-    lastName: { type: String },
-  },
   username: { type: String, unique: true, required: true },
 }, {
   timestamps: true,
